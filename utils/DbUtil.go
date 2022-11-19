@@ -22,7 +22,8 @@ type MysqlConfig struct {
 func InitDb(config MysqlConfig) error {
 	var dataSourceName = config.Unm + ":" + config.Pwd + "@tcp(" + config.Ip + ":" + strconv.Itoa(config.Port) + ")/" + config.DbName
 	fmt.Println(dataSourceName)
-	Database, err := sql.Open(constants.DriverName, dataSourceName)
+	var err error
+	Database, err = sql.Open(constants.DriverName, dataSourceName)
 	if err != nil {
 		fmt.Println(err)
 		return err
