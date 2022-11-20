@@ -21,8 +21,8 @@ type Skill struct {
 	AdditionalEffects string `json:"additional_effects"`
 }
 
-// Genius 精灵
-type Genius struct {
+// Spirit 精灵
+type Spirit struct {
 	Avatar                string   `json:"avatar"`
 	Name                  string   `json:"name"`
 	PrimaryAttributesID   *int     `json:"primary_attributes_id"`
@@ -40,6 +40,20 @@ type Genius struct {
 	RaceMagicDefense      int      `json:"race_magic_defense"`
 	RaceSpeed             int      `json:"race_speed"`
 	Skills                []string `json:"skills"`
+}
+
+type SpiritListItem struct {
+	ID                  int64            `json:"id"`
+	Number              string           `json:"number"`
+	Avatar              string           `json:"avatar"`
+	Name                string           `json:"name"`
+	PrimaryAttributes   GeniusAttributes `json:"primaryAttributes"`
+	SecondaryAttributes GeniusAttributes `json:"secondaryAttributes"`
+}
+
+type GeniusAttributes struct {
+	Id   *int    `json:"id"`
+	Name *string `json:"name"`
 }
 
 // NewsList 新闻集合

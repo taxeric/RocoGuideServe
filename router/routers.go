@@ -2,6 +2,7 @@ package router
 
 import (
 	"RocoGuide/router/news"
+	news2 "RocoGuide/router/spirit"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,7 @@ func registerAPI(api ...API) {
 
 func InitAPI(port string) {
 	registerAPI(news.LoadNews)
+	registerAPI(news2.LoadSpirit)
 	engin := gin.Default()
 	g := engin.Group("/api")
 	for _, api := range apis {
