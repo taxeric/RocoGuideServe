@@ -72,3 +72,8 @@ type News struct {
 	Type       int     `json:"type"`
 	Content    string  `json:"content"`
 }
+
+type SpiritGroup struct {
+	Id   *int    `json:"id"`
+	Name *string `json:"name"`
+}

@@ -1,4 +1,4 @@
-package news
+package spirit
 
 import (
 	"RocoGuide/base"
