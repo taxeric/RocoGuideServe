@@ -5,13 +5,13 @@ import (
 	"RocoGuide/utils"
 )
 
-func GetGroupList() []entity.SpiritGroup {
-	var sql = "select id,name from group_table"
+func GetAllAttrs() []entity.SpiritAttributes {
+	var sql = "select id,name from genius_attributes"
 	row, _ := utils.Database.Query(sql)
 	defer row.Close()
-	var list = make([]entity.SpiritGroup, 0)
+	var list = make([]entity.SpiritAttributes, 0)
 	for row.Next() {
-		var group entity.SpiritGroup
+		var group entity.SpiritAttributes
 		row.Scan(&group.Id, &group.Name)
 		list = append(list, group)
 	}

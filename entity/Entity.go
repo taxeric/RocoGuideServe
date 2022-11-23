@@ -47,11 +47,11 @@ type SpiritListItem struct {
 	Number              string           `json:"number"`
 	Avatar              string           `json:"avatar"`
 	Name                string           `json:"name"`
-	PrimaryAttributes   GeniusAttributes `json:"primaryAttributes"`
-	SecondaryAttributes GeniusAttributes `json:"secondaryAttributes"`
+	PrimaryAttributes   SpiritAttributes `json:"primaryAttributes"`
+	SecondaryAttributes SpiritAttributes `json:"secondaryAttributes"`
 }
 
-type GeniusAttributes struct {
+type SpiritAttributes struct {
 	Id   *int    `json:"id"`
 	Name *string `json:"name"`
 }

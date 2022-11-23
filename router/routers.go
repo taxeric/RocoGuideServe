@@ -1,6 +1,7 @@
 package router
 
 import (
+	"RocoGuide/router/attrs"
 	"RocoGuide/router/group"
 	"RocoGuide/router/news"
 	"RocoGuide/router/spirit"
@@ -19,6 +20,7 @@ func InitAPI(port string) {
 	registerAPI(news.LoadNews)
 	registerAPI(spirit.LoadSpirit)
 	registerAPI(group.LoadSpiritGroup)
+	registerAPI(attrs.LoadAttrs)
 	engin := gin.Default()
 	g := engin.Group("/api")
 	for _, api := range apis {
