@@ -6,19 +6,24 @@ type Skills struct {
 	Data      []Skill `json:"data"`
 }
 
+type SkillType struct {
+	Id   *int    `json:"id"`
+	Name *string `json:"name"`
+}
+
 // Skill 技能原始数据
 type Skill struct {
-	ID                int    `json:"id"`
-	Name              string `json:"name"`
-	AttributesID      int    `json:"attributes_id"`
-	Description       string `json:"description"`
-	SkillTypeID       int    `json:"skill_type_id"`
-	Value             int    `json:"value"`
-	Amount            int    `json:"amount"`
-	IsGenetic         int    `json:"is_genetic"`
-	Speed             int    `json:"speed"`
-	IsBe              int    `json:"is_be"`
-	AdditionalEffects string `json:"additional_effects"`
+	Id                int64            `json:"id"`
+	Name              string           `json:"name"`
+	Description       string           `json:"description"`
+	Value             int              `json:"value"`
+	Amount            int              `json:"amount"`
+	Speed             int              `json:"speed"`
+	IsGenetic         bool             `json:"isGenetic"`
+	AdditionalEffects string           `json:"additionalEffects"`
+	IsBe              bool             `json:"isBe"`
+	SkillType         SkillType        `json:"skillType"`
+	Attributes        SpiritAttributes `json:"attributes"`
 }
 
 // Spirit 精灵
