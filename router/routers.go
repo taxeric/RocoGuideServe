@@ -5,6 +5,7 @@ import (
 	"RocoGuide/router/group"
 	"RocoGuide/router/news"
 	"RocoGuide/router/skill"
+	"RocoGuide/router/skilltype"
 	"RocoGuide/router/spirit"
 	"github.com/gin-gonic/gin"
 )
@@ -23,6 +24,7 @@ func InitAPI(port string) {
 	registerAPI(group.LoadSpiritGroup)
 	registerAPI(attrs.LoadAttrs)
 	registerAPI(skill.LoadSkill)
+	registerAPI(skilltype.LoadSkillType)
 	engin := gin.Default()
 	g := engin.Group("/api")
 	for _, api := range apis {
