@@ -37,3 +37,34 @@ func GetSpiritList(page int, amount int, keywords string) ([]entity.SpiritListIt
 	}
 	return list, total
 }
+
+func InsertSpirit(spirit *entity.Spirit) int64 {
+	var sql = "insert into genius(avatar,number,name,description,primary_attributes_id,secondary_attributes_id,race_power,race_attack,race_defense,race_magic_attack,race_magic_defense,race_speed,group_id,height,weight,hobby) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+	row, _ := utils.Database.Exec(
+		sql,
+		spirit.Avatar,
+		spirit.Number,
+		spirit.Name,
+		spirit.Description,
+		spirit.PrimaryAttributes.Id,
+		spirit.SecondaryAttributes.Id,
+		spirit.RacePower,
+		spirit.RaceAttack,
+		spirit.RaceDefense,
+		spirit.RaceMagicAttack,
+		spirit.RaceMagicDefense,
+		spirit.RaceSpeed,
+		spirit.Group.Id,
+		spirit.Height,
+		spirit.Weight,
+		spirit.Hobby,
+	)
+	spiritSqlId, _ := row.LastInsertId()
+	for _, v := range spirit.Skills {
+		row, _ = utils.Database.Exec("insert into genius_skill(genius_id,skill_id) values (?,?)",
+			spiritSqlId,
+			v.Id)
+		_, _ = row.LastInsertId() // 操作影响的行数
+	}
+	return spiritSqlId
+}

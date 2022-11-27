@@ -28,23 +28,23 @@ type Skill struct {
 
 // Spirit 精灵
 type Spirit struct {
-	Avatar                string   `json:"avatar"`
-	Name                  string   `json:"name"`
-	PrimaryAttributesID   *int     `json:"primary_attributes_id"`
-	SecondaryAttributesID *int     `json:"secondary_attributes_id"`
-	GroupID               *int     `json:"group_id"`
-	Number                int      `json:"number"`
-	Height                float64  `json:"height"`
-	Weight                float64  `json:"weight"`
-	Hobby                 string   `json:"hobby"`
-	Description           string   `json:"description"`
-	RacePower             int      `json:"race_power"`
-	RaceAttack            int      `json:"race_attack"`
-	RaceDefense           int      `json:"race_defense"`
-	RaceMagicAttack       int      `json:"race_magic_attack"`
-	RaceMagicDefense      int      `json:"race_magic_defense"`
-	RaceSpeed             int      `json:"race_speed"`
-	Skills                []string `json:"skills"`
+	Avatar              string           `json:"avatar"`
+	Name                string           `json:"name"`
+	PrimaryAttributes   SpiritAttributes `json:"primary_attributes_id"`
+	SecondaryAttributes SpiritAttributes `json:"secondary_attributes_id"`
+	Group               SpiritGroup      `json:"group_id"`
+	Number              int              `json:"number"`
+	Height              float32          `json:"height"`
+	Weight              float32          `json:"weight"`
+	Hobby               string           `json:"hobby"`
+	Description         string           `json:"description"`
+	RacePower           int              `json:"race_power"`
+	RaceAttack          int              `json:"race_attack"`
+	RaceDefense         int              `json:"race_defense"`
+	RaceMagicAttack     int              `json:"race_magic_attack"`
+	RaceMagicDefense    int              `json:"race_magic_defense"`
+	RaceSpeed           int              `json:"race_speed"`
+	Skills              []Skill          `json:"skills"`
 }
 
 type SpiritListItem struct {
@@ -79,6 +79,6 @@ type News struct {
 }
 
 type SpiritGroup struct {
-	Id   *int    `json:"id"`
+	Id   int     `json:"id"`
 	Name *string `json:"name"`
 }
