@@ -9,5 +9,5 @@ func LoadSkillType(g *gin.RouterGroup) {
 
 func loadSkillTypeV1(g *gin.RouterGroup) {
 	group := g.Group("/v1")
-	group.GET("/page", getAllSkillType)
+	group.GET("/types", getAllSkillType)
 }

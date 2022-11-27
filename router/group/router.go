@@ -9,5 +9,5 @@ func LoadSpiritGroup(g *gin.RouterGroup) {
 
 func loadSpiritGroupV1(g *gin.RouterGroup) {
 	group := g.Group("/v1")
-	group.GET("/page", getAllGroup)
+	group.GET("/groups", getAllGroup)
 }

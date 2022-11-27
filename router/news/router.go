@@ -11,6 +11,6 @@ func LoadNews(g *gin.RouterGroup) {
 
 func loadNewsV1(g *gin.RouterGroup) {
 	group := g.Group("/v1")
-	group.GET("/page", getNews)
+	group.GET("/news", getNews)
 	group.POST("/news", insertNews)
 }

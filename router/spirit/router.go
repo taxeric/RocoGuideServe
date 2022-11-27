@@ -11,6 +11,6 @@ func LoadSpirit(g *gin.RouterGroup) {
 
 func loadSpiritV1(g *gin.RouterGroup) {
 	group := g.Group("/v1")
-	group.GET("/page", getSpiritList)
-	group.POST("/spirit", insertSpirit)
+	group.GET("/spirits", getSpiritList)
+	group.POST("/spirits", insertSpirit)
 }

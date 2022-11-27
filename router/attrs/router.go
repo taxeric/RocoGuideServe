@@ -9,5 +9,5 @@ func LoadAttrs(g *gin.RouterGroup) {
 
 func loadAttrsV1(g *gin.RouterGroup) {
 	group := g.Group("/v1")
-	group.GET("/page", getAllAttrs)
+	group.GET("/attrs", getAllAttrs)
 }
