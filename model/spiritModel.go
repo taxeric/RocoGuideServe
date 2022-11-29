@@ -68,3 +68,67 @@ func InsertSpirit(spirit *entity.Spirit) int64 {
 	}
 	return spiritSqlId
 }
+
+func GetSpiritDetailsById(id int) (*entity.Spirit, error) {
+	row, err := utils.Database.Query("select gen.avatar,gen.number,gen.name,gen.description,gen.race_power,gen.race_attack,gen.race_defense,gen.race_magic_attack,gen.race_magic_defense,gen.race_speed,gen.height,gen.weight,gen.hobby,att.id,att.name,att2.id,att2.name,gro.id,gro.name from `genius` gen left join `genius_attributes` att on gen.primary_attributes_id = att.id left join `genius_attributes` att2 on gen.secondary_attributes_id = att2.id left join `group_table` gro on gen.group_id = gro.id where gen.number = ?",
+		id)
+	if err != nil {
+		return nil, err
+	}
+	defer row.Close()
+	var details entity.Spirit
+	if row.Next() {
+		err = row.Scan(
+			&details.Avatar,
+			&details.Number,
+			&details.Name,
+			&details.Description,
+			&details.RacePower,
+			&details.RaceAttack,
+			&details.RaceDefense,
+			&details.RaceMagicAttack,
+			&details.RaceMagicDefense,
+			&details.RaceSpeed,
+			&details.Height,
+			&details.Weight,
+			&details.Hobby,
+			&details.PrimaryAttributes.Id,
+			&details.PrimaryAttributes.Name,
+			&details.SecondaryAttributes.Id,
+			&details.SecondaryAttributes.Name,
+			&details.Group.Id,
+			&details.Group.Name)
+		if err != nil {
+			return nil, err
+		}
+	}
+	row, err = utils.Database.Query("select s.Id, s.name, s.description, s.value, s.amount, s.speed, s.is_genetic, s.additional_effects, s.is_be, att3.id, att3.name, st.id, st.name from `genius_skill` gs left join  `skill` s on gs.skill_id = s.id left join `genius_attributes` att3 on s.attributes_id = att3.id  left join `skill_type` st on s.skill_type_id = st.id  where gs.genius_id = ?",
+		id)
+	if err != nil {
+		return nil, err
+	}
+	defer row.Close()
+	details.Skills = make([]entity.Skill, 0)
+	for row.Next() {
+		var skill entity.Skill
+		err = row.Scan(
+			&skill.Id,
+			&skill.Name,
+			&skill.Description,
+			&skill.Value,
+			&skill.Amount,
+			&skill.Speed,
+			&skill.IsGenetic,
+			&skill.AdditionalEffects,
+			&skill.IsBe,
+			&skill.Attributes.Id,
+			&skill.Attributes.Name,
+			&skill.SkillType.Id,
+			&skill.SkillType.Name)
+		details.Skills = append(details.Skills, skill)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return &details, nil
+}

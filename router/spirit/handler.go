@@ -4,6 +4,7 @@ import (
 	"RocoGuide/base"
 	"RocoGuide/entity"
 	"RocoGuide/model"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -36,6 +37,10 @@ type spiritDetailsRequest struct {
 	Skill                 *[]int   `json:"skills" form:"skills" binding:"required"`
 }
 
+type spiritByIdRequest struct {
+	Id *int `json:"id" binding:"required"`
+}
+
 func getSpiritList(c *gin.Context) {
 	var request getSpiritListRequest
 	err := c.ShouldBind(&request)
@@ -52,6 +57,33 @@ func getSpiritList(c *gin.Context) {
 		Msg:   "成功",
 		Data:  &list,
 		Total: total,
+	})
+}
+
+func getSpiritDetailsById(c *gin.Context) {
+	var request spiritByIdRequest
+	err := c.ShouldBind(&request)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, base.BadResponseEntity{
+			Code: 400,
+			Msg:  "请求参数错误",
+		})
+		return
+	}
+	data, err := model.GetSpiritDetailsById(*request.Id)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, base.BadResponseEntity{
+			Code: 400,
+			Msg:  "请求参数错误",
+		})
+		return
+	}
+	c.JSON(200, base.ResponseEntity{
+		Code: 200,
+		Msg:  "成功",
+		Data: &data,
 	})
 }
 
