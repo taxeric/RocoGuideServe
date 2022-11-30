@@ -1,6 +1,7 @@
 package router
 
 import (
+	"RocoGuide/middleware"
 	"RocoGuide/router/attrs"
 	"RocoGuide/router/group"
 	"RocoGuide/router/news"
@@ -27,6 +28,7 @@ func InitAPI(port string) {
 	registerAPI(skilltype.LoadSkillType)
 	engin := gin.Default()
 	g := engin.Group("/api")
+	g.Use(middleware.Cors())
 	for _, api := range apis {
 		api(g)
 	}

@@ -38,7 +38,7 @@ type spiritDetailsRequest struct {
 }
 
 type spiritByIdRequest struct {
-	Id *int `json:"id" binding:"required"`
+	Id *int `json:"id" form:"id" binding:"required"`
 }
 
 func getSpiritList(c *gin.Context) {
