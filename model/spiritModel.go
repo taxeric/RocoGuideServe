@@ -3,6 +3,7 @@ package model
 import (
 	"RocoGuide/entity"
 	"RocoGuide/utils"
+	"fmt"
 )
 
 func GetSpiritList(page int, amount int, keywords string) ([]entity.SpiritListItem, int) {
@@ -59,12 +60,17 @@ func InsertSpirit(spirit *entity.Spirit) int64 {
 		spirit.Weight,
 		spirit.Hobby,
 	)
-	spiritSqlId, _ := row.LastInsertId()
-	for _, v := range spirit.Skills {
-		row, _ = utils.Database.Exec("insert into genius_skill(genius_id,skill_id) values (?,?)",
-			spiritSqlId,
-			v.Id)
-		_, _ = row.LastInsertId() // 操作影响的行数
+	spiritSqlId, err := row.LastInsertId()
+	if err != nil {
+		fmt.Println(err)
+	}
+	if len(spirit.Skills) != 0 {
+		for _, v := range spirit.Skills {
+			row, _ = utils.Database.Exec("insert into genius_skill(genius_id,skill_id) values (?,?)",
+				spiritSqlId,
+				v.Id)
+			_, _ = row.LastInsertId() // 操作影响的行数
+		}
 	}
 	return spiritSqlId
 }

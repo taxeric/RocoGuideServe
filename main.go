@@ -17,6 +17,5 @@ func main() {
 	if err != nil {
 		return
 	}
-	println("初始化成功")
 	router.InitAPI("8888")
 }
