@@ -66,6 +66,7 @@ func InsertSpirit(spirit *entity.Spirit) int64 {
 	}
 	if len(spirit.Skills) != 0 {
 		for _, v := range spirit.Skills {
+			fmt.Printf("data -> %v", v)
 			row, _ = utils.Database.Exec("insert into genius_skill(genius_id,skill_id) values (?,?)",
 				spiritSqlId,
 				v.Id)

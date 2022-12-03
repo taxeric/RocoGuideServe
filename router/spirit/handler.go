@@ -17,7 +17,7 @@ type getSpiritListRequest struct {
 }
 
 type spiritDetailsRequest struct {
-	Id                    *int     `json:"id" form:"id"`
+	Id                    *int64   `json:"id" form:"id"`
 	Avatar                *string  `json:"avatar" form:"avatar" binding:"required"`
 	Number                *int     `json:"number" form:"number" binding:"required"`
 	Name                  *string  `json:"name" form:"name" binding:"required"`
@@ -34,7 +34,7 @@ type spiritDetailsRequest struct {
 	Height                *float32 `json:"height" form:"height" binding:"required"`
 	Weight                *float32 `json:"weight" form:"weight" binding:"required"`
 	Hobby                 *string  `json:"hobby" form:"hobby" binding:"required"`
-	Skill                 *[]int   `json:"skills" form:"skills" binding:"required"`
+	Skill                 *[]int   `json:"skills" form:"skills"`
 }
 
 type spiritByIdRequest struct {
@@ -54,7 +54,7 @@ func getSpiritList(c *gin.Context) {
 	list, total := model.GetSpiritList(*request.Page, *request.Amount, request.Keywords)
 	c.JSON(200, base.ResponseListEntity{
 		Code:  200,
-		Msg:   "成功",
+		Msg:   "success",
 		Data:  &list,
 		Total: total,
 	})
@@ -82,7 +82,7 @@ func getSpiritDetailsById(c *gin.Context) {
 	}
 	c.JSON(200, base.ResponseEntity{
 		Code: 200,
-		Msg:  "成功",
+		Msg:  "success",
 		Data: &data,
 	})
 }
@@ -115,14 +115,17 @@ func insertSpirit(c *gin.Context) {
 	spirit.Weight = *request.Weight
 	spirit.Hobby = *request.Hobby
 	spirit.Skills = make([]entity.Skill, 0)
-	for _, v := range *request.Skill {
-		var s = new(entity.Skill)
-		s.Id = int64(v)
-		spirit.Skills = append(spirit.Skills, *s)
+	if request.Skill != nil {
+		for _, v := range *request.Skill {
+			var s = new(entity.Skill)
+			s.Id = int64(v)
+			spirit.Skills = append(spirit.Skills, *s)
+		}
 	}
 	id := model.InsertSpirit(&spirit)
 	c.JSON(http.StatusOK, base.ResponseEntity{
 		Code: http.StatusOK,
+		Msg:  "success",
 		Data: strconv.FormatInt(id, 10),
 	})
 }

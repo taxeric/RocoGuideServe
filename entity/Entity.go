@@ -30,20 +30,20 @@ type Skill struct {
 type Spirit struct {
 	Avatar              string           `json:"avatar"`
 	Name                string           `json:"name"`
-	PrimaryAttributes   SpiritAttributes `json:"primary_attributes_id"`
-	SecondaryAttributes SpiritAttributes `json:"secondary_attributes_id"`
-	Group               SpiritGroup      `json:"group_id"`
+	PrimaryAttributes   SpiritAttributes `json:"primaryAttributes"`
+	SecondaryAttributes SpiritAttributes `json:"secondaryAttributes"`
+	Group               SpiritGroup      `json:"groupId"`
 	Number              int              `json:"number"`
 	Height              float32          `json:"height"`
 	Weight              float32          `json:"weight"`
 	Hobby               string           `json:"hobby"`
 	Description         string           `json:"description"`
-	RacePower           int              `json:"race_power"`
-	RaceAttack          int              `json:"race_attack"`
-	RaceDefense         int              `json:"race_defense"`
-	RaceMagicAttack     int              `json:"race_magic_attack"`
-	RaceMagicDefense    int              `json:"race_magic_defense"`
-	RaceSpeed           int              `json:"race_speed"`
+	RacePower           int              `json:"racePower"`
+	RaceAttack          int              `json:"raceAttack"`
+	RaceDefense         int              `json:"raceDefense"`
+	RaceMagicAttack     int              `json:"raceMagicAttack"`
+	RaceMagicDefense    int              `json:"raceMagicDefense"`
+	RaceSpeed           int              `json:"raceSpeed"`
 	Skills              []Skill          `json:"skills"`
 }
 
