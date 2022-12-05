@@ -28,6 +28,7 @@ type Skill struct {
 
 // Spirit 精灵
 type Spirit struct {
+	Id                  int64            `json:"id"`
 	Avatar              string           `json:"avatar"`
 	Name                string           `json:"name"`
 	PrimaryAttributes   SpiritAttributes `json:"primaryAttributes"`

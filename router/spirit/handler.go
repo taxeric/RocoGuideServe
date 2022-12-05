@@ -129,3 +129,38 @@ func insertSpirit(c *gin.Context) {
 		Data: strconv.FormatInt(id, 10),
 	})
 }
+
+func updateSpirit(c *gin.Context) {
+	var request spiritDetailsRequest
+	err := c.ShouldBind(&request)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, base.BadResponseEntity{
+			Code: 400,
+			Msg:  "请求参数错误",
+		})
+		return
+	}
+	var spirit entity.Spirit
+	spirit.Avatar = *request.Avatar
+	spirit.Number = *request.Number
+	spirit.Name = *request.Name
+	spirit.Description = *request.Description
+	spirit.PrimaryAttributes.Id = request.PrimaryAttributesId
+	spirit.SecondaryAttributes.Id = request.SecondaryAttributesId
+	spirit.RacePower = *request.RacePower
+	spirit.RaceAttack = *request.RaceAttack
+	spirit.RaceDefense = *request.RaceDefense
+	spirit.RaceMagicAttack = *request.RaceMagicAttack
+	spirit.RaceMagicDefense = *request.RaceMagicDefense
+	spirit.RaceSpeed = *request.RaceSpeed
+	spirit.Group.Id = *request.GroupId
+	spirit.Height = *request.Height
+	spirit.Weight = *request.Weight
+	spirit.Hobby = *request.Hobby
+	id := model.UpdateSpirit(&spirit)
+	c.JSON(http.StatusOK, base.ResponseEntity{
+		Code: http.StatusOK,
+		Msg:  "success",
+		Data: strconv.FormatInt(id, 10),
+	})
+}

@@ -139,3 +139,27 @@ func GetSpiritDetailsById(id int) (*entity.Spirit, error) {
 	}
 	return &details, nil
 }
+
+func UpdateSpirit(spirit *entity.Spirit) int64 {
+	sql := "update genius set avatar=?,name=?,description=?,primary_attributes_id=?,secondary_attributes_id=?,race_power=?,race_attack=?,race_defense=?,race_magic_attack=?,race_magic_defense=?,race_speed=?,group_id=?,height=?,weight=?,hobby=? where number = ?"
+	row, _ := utils.Database.Exec(sql,
+		spirit.Avatar,
+		spirit.Name,
+		spirit.Description,
+		spirit.PrimaryAttributes.Id,
+		spirit.SecondaryAttributes.Id,
+		spirit.RacePower,
+		spirit.RaceAttack,
+		spirit.RaceDefense,
+		spirit.RaceMagicAttack,
+		spirit.RaceMagicDefense,
+		spirit.RaceSpeed,
+		spirit.Group.Id,
+		spirit.Height,
+		spirit.Weight,
+		spirit.Hobby,
+		spirit.Number,
+	)
+	spiritId, _ := row.RowsAffected()
+	return spiritId
+}
