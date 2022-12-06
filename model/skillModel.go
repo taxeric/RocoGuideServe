@@ -62,3 +62,21 @@ func InsertSkill(skill *entity.Skill) int64 {
 	id, _ := result.LastInsertId()
 	return id
 }
+
+func UpdateSkill(skill *entity.Skill) int64 {
+	sql := "update skill set name=?,skill_type_id=?,attributes_id=?,value=?,amount=?,speed=?,is_genetic=?,is_be=?,additional_effects=?,description=? where id = ?"
+	result, _ := utils.Database.Exec(sql,
+		skill.Name,
+		skill.SkillType.Id,
+		skill.Attributes.Id,
+		skill.Value,
+		skill.Amount,
+		skill.Speed,
+		skill.IsGenetic,
+		skill.IsBe,
+		skill.AdditionalEffects,
+		skill.Description,
+		skill.Id)
+	id, _ := result.RowsAffected()
+	return id
+}

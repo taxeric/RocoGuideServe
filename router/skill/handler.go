@@ -16,7 +16,7 @@ type GetSkillPageRequest struct {
 }
 
 type skillDetailRequest struct {
-	Id                *int    `json:"id" form:"id"`
+	Id                *int64  `json:"id" form:"id"`
 	Name              *string `json:"name" form:"name" binding:"required"`
 	Description       *string `json:"description" form:"description" binding:"required"`
 	Value             *int    `json:"value" form:"value" binding:"required"`
@@ -66,5 +66,30 @@ func insertSkill(c *gin.Context) {
 		Code: http.StatusOK,
 		Msg:  "success",
 		Data: strconv.FormatInt(id, 10),
+	})
+}
+
+func updateSkill(c *gin.Context) {
+	var request skillDetailRequest
+	err := c.ShouldBind(&request)
+	if err != nil {
+		panic("failed")
+	}
+	var skill entity.Skill
+	skill.Id = *request.Id
+	skill.Name = *request.Name
+	skill.Description = *request.Description
+	skill.AdditionalEffects = *request.AdditionalEffects
+	skill.Value = *request.Value
+	skill.Amount = *request.Amount
+	skill.Speed = *request.Speed
+	skill.Attributes.Id = request.AttributesID
+	skill.SkillType.Id = request.SkillTypeID
+	skill.IsGenetic = *request.IsGenetic
+	skill.IsBe = *request.IsBe
+	_ = model.UpdateSkill(&skill)
+	c.JSON(http.StatusOK, base.ResponseEntity{
+		Code: http.StatusOK,
+		Msg:  "success",
 	})
 }
