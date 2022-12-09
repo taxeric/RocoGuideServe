@@ -5,6 +5,13 @@ import (
 	"RocoGuide/utils"
 )
 
+func InsertSeries(series entity.SpiritSeries) int64 {
+	var sql = "insert into series(name) values (?)"
+	result, _ := utils.Database.Exec(sql, series.Name)
+	id, _ := result.LastInsertId()
+	return id
+}
+
 func GetAllSeries() []entity.SpiritSeries {
 	var sql = "select * from series"
 	row, _ := utils.Database.Query(sql)

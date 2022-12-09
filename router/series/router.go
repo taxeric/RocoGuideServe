@@ -9,6 +9,7 @@ func LoadSeries(g *gin.RouterGroup) {
 
 func loadSeriesV1(g *gin.RouterGroup) {
 	var group = g.Group("/v1")
+	group.POST("/series", insertSeries)
 	group.GET("/series", getAllSeries)
 	group.PUT("/series", updateSeries)
 }
