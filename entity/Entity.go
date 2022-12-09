@@ -88,3 +88,11 @@ type SpiritSeries struct {
 	Id   int64  `json:"id"`
 	Name string `json:"name"`
 }
+
+type SkillEnvironment struct {
+	Id      int64  `json:"id"`
+	Name    string `json:"name"`
+	Effects string `json:"effects"`
+	Type    int    `json:"type"`
+	Icon    string `json:"icon"`
+}

@@ -3,6 +3,7 @@ package router
 import (
 	"RocoGuide/middleware"
 	"RocoGuide/router/attrs"
+	"RocoGuide/router/environment"
 	"RocoGuide/router/group"
 	"RocoGuide/router/news"
 	"RocoGuide/router/series"
@@ -10,6 +11,7 @@ import (
 	"RocoGuide/router/skilltype"
 	"RocoGuide/router/spirit"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type API func(*gin.RouterGroup)
@@ -28,11 +30,13 @@ func InitAPI(port string) {
 	registerAPI(skill.LoadSkill)
 	registerAPI(skilltype.LoadSkillType)
 	registerAPI(series.LoadSeries)
+	registerAPI(environment.LoadSkillEnvironment)
 	engin := gin.Default()
 	g := engin.Group("/api")
 	g.Use(middleware.Cors())
 	for _, api := range apis {
 		api(g)
 	}
+	g.StaticFS("/res", http.Dir("./res"))
 	engin.Run(":" + port)
 }
