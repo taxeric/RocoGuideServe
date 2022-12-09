@@ -17,3 +17,10 @@ func GetAllSeries() []entity.SpiritSeries {
 	}
 	return list
 }
+
+func UpdateSeries(series *entity.SpiritSeries) int64 {
+	var sql = "update series set name=? where id=?"
+	row, _ := utils.Database.Exec(sql, series.Name, series.Id)
+	seriesId, _ := row.RowsAffected()
+	return seriesId
+}
