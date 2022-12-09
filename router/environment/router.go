@@ -9,6 +9,7 @@ func LoadSkillEnvironment(g *gin.RouterGroup) {
 
 func loadSkillEnvironment(g *gin.RouterGroup) {
 	var group = g.Group("/v1")
+	group.POST("/environment", insertEnvironment)
 	group.GET("/environment", getAllEnvironment)
 	group.PUT("/environment", updateEnvironment)
 }

@@ -5,6 +5,13 @@ import (
 	"RocoGuide/utils"
 )
 
+func InsertEnvironment(environment entity.SkillEnvironment) int64 {
+	var sql = "insert into environment(name,introduce,effects,type,icon) values (?,?,?,?,?)"
+	result, _ := utils.Database.Exec(sql, environment.Name, environment.Introduce, environment.Effects, environment.Type, environment.Icon)
+	id, _ := result.LastInsertId()
+	return id
+}
+
 func GetAllEnvironment() []entity.SkillEnvironment {
 	var sql = "select * from environment"
 	row, _ := utils.Database.Query(sql)
@@ -15,9 +22,10 @@ func GetAllEnvironment() []entity.SkillEnvironment {
 		row.Scan(
 			&environment.Id,
 			&environment.Name,
+			&environment.Introduce,
 			&environment.Effects,
-			&environment.Icon,
 			&environment.Type,
+			&environment.Icon,
 		)
 		list = append(list, environment)
 	}
@@ -25,10 +33,11 @@ func GetAllEnvironment() []entity.SkillEnvironment {
 }
 
 func UpdateEnvironment(environment entity.SkillEnvironment) int64 {
-	var sql = "update environment set name=? effects=? type=? icon=? where id=?"
+	var sql = "update environment set name=? introduce=? effects=? type=? icon=? where id=?"
 	row, _ := utils.Database.Exec(
 		sql,
 		environment.Name,
+		environment.Introduce,
 		environment.Effects,
 		environment.Type,
 		environment.Icon,
