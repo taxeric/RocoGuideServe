@@ -83,3 +83,8 @@ type SpiritGroup struct {
 	Id   int     `json:"id"`
 	Name *string `json:"name"`
 }
+
+type SpiritSeries struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}

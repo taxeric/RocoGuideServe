@@ -5,6 +5,7 @@ import (
 	"RocoGuide/router/attrs"
 	"RocoGuide/router/group"
 	"RocoGuide/router/news"
+	"RocoGuide/router/series"
 	"RocoGuide/router/skill"
 	"RocoGuide/router/skilltype"
 	"RocoGuide/router/spirit"
@@ -26,6 +27,7 @@ func InitAPI(port string) {
 	registerAPI(attrs.LoadAttrs)
 	registerAPI(skill.LoadSkill)
 	registerAPI(skilltype.LoadSkillType)
+	registerAPI(series.LoadSeries)
 	engin := gin.Default()
 	g := engin.Group("/api")
 	g.Use(middleware.Cors())
