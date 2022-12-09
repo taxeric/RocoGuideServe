@@ -26,6 +26,11 @@
 <ul>
 <li>获取组别列表</li>
 </ul>
+<ul>
+<li>获取系别列表</li>
+<li>新增系别</li>
+<li>更新系别数据</li>
+</ul>
 </details>
 
 <details>
@@ -44,6 +49,11 @@
 </ul>
 <ul>
 <li>获取技能类型列表</li>
+</ul>
+<ul>
+<li>获取天气环境列表</li>
+<li>新增天气环境</li>
+<li>更新天气环境数据</li>
 </ul>
 </details>
 
