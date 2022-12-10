@@ -33,7 +33,7 @@ func GetAllEnvironment() []entity.SkillEnvironment {
 }
 
 func UpdateEnvironment(environment entity.SkillEnvironment) int64 {
-	var sql = "update environment set name=? introduce=? effects=? type=? icon=? where id=?"
+	var sql = "update environment set name=?,introduce=?,effects=?,type=?,icon=? where id=?"
 	row, _ := utils.Database.Exec(
 		sql,
 		environment.Name,
