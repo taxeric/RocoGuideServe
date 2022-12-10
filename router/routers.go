@@ -2,6 +2,7 @@ package router
 
 import (
 	"RocoGuide/middleware"
+	"RocoGuide/router/abnormal"
 	"RocoGuide/router/attrs"
 	"RocoGuide/router/environment"
 	"RocoGuide/router/group"
@@ -31,6 +32,7 @@ func InitAPI(port string) {
 	registerAPI(skilltype.LoadSkillType)
 	registerAPI(series.LoadSeries)
 	registerAPI(environment.LoadSkillEnvironment)
+	registerAPI(abnormal.LoadAbnormalState)
 	engin := gin.Default()
 	g := engin.Group("/api")
 	g.Use(middleware.Cors())
