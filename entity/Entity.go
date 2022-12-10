@@ -1,5 +1,7 @@
 package entity
 
+import "database/sql"
+
 // Skills 技能集合
 type Skills struct {
 	TotalItem int     `json:"totalItem"`
@@ -95,5 +97,19 @@ type SkillEnvironment struct {
 	Introduce string `json:"introduce"`
 	Effects   string `json:"effects"`
 	Type      int    `json:"type"`
+	Icon      string `json:"icon"`
+}
+
+type AbnormalState struct {
+	Id        int64          `json:"id"`
+	Name      string         `json:"name"`
+	Introduce string         `json:"introduce"`
+	Icon      sql.NullString `json:"icon"`
+}
+
+type AbnormalStateResponse struct {
+	Id        int64  `json:"id"`
+	Name      string `json:"name"`
+	Introduce string `json:"introduce"`
 	Icon      string `json:"icon"`
 }
