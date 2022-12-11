@@ -3,6 +3,7 @@ package model
 import (
 	"RocoGuide/entity"
 	"RocoGuide/utils"
+	"fmt"
 )
 
 func GetNewsList(page int, amount int) ([]entity.News, int) {
@@ -39,4 +40,14 @@ func insertData(newsType int, contentOrUrl string, title string) int64 {
 	result, _ := utils.Database.Exec(sql, newsType, contentOrUrl, title)
 	id, _ := result.LastInsertId()
 	return id
+}
+
+func UpdateNews(news entity.News) int64 {
+	var sql = "update news set url=?,title=? where id=?"
+	row, err := utils.Database.Exec(sql, news.Url, news.Title, news.Id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	newsId, _ := row.RowsAffected()
+	return newsId
 }
