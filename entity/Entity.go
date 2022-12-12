@@ -36,6 +36,7 @@ type Spirit struct {
 	PrimaryAttributes   SpiritAttributes `json:"primaryAttributes"`
 	SecondaryAttributes SpiritAttributes `json:"secondaryAttributes"`
 	Group               SpiritGroup      `json:"groupId"`
+	Series              Series           `json:"series"`
 	Number              int              `json:"number"`
 	Height              float32          `json:"height"`
 	Weight              float32          `json:"weight"`
@@ -84,6 +85,11 @@ type News struct {
 type SpiritGroup struct {
 	Id   int     `json:"id"`
 	Name *string `json:"name"`
+}
+
+type Series struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 type SpiritSeries struct {
