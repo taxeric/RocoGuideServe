@@ -119,3 +119,10 @@ type AbnormalStateResponse struct {
 	Introduce string `json:"introduce"`
 	Icon      string `json:"icon"`
 }
+
+type Lineage struct {
+	Id        int64  `json:"id"`
+	Name      string `json:"name"`
+	Introduce string `json:"introduce"`
+	Icon      string `json:"icon"`
+}
