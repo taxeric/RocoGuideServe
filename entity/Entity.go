@@ -37,6 +37,7 @@ type Spirit struct {
 	SecondaryAttributes SpiritAttributes `json:"secondaryAttributes"`
 	Group               SpiritGroup      `json:"groupId"`
 	Series              Series           `json:"series"`
+	Lineage             Lineage          `json:"lineage"`
 	Number              int              `json:"number"`
 	Height              float32          `json:"height"`
 	Weight              float32          `json:"weight"`

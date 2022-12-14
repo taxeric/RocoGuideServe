@@ -40,7 +40,7 @@ func GetSpiritList(page int, amount int, keywords string) ([]entity.SpiritListIt
 }
 
 func InsertSpirit(spirit *entity.Spirit) int64 {
-	var sql = "insert into genius(avatar,number,name,description,primary_attributes_id,secondary_attributes_id,race_power,race_attack,race_defense,race_magic_attack,race_magic_defense,race_speed,group_id,series,height,weight,hobby) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+	var sql = "insert into genius(avatar,number,name,description,primary_attributes_id,secondary_attributes_id,race_power,race_attack,race_defense,race_magic_attack,race_magic_defense,race_speed,group_id,series,lineage,height,weight,hobby) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	row, _ := utils.Database.Exec(
 		sql,
 		spirit.Avatar,
@@ -57,6 +57,7 @@ func InsertSpirit(spirit *entity.Spirit) int64 {
 		spirit.RaceSpeed,
 		spirit.Group.Id,
 		spirit.Series.Id,
+		spirit.Lineage.Id,
 		spirit.Height,
 		spirit.Weight,
 		spirit.Hobby,
@@ -78,7 +79,7 @@ func InsertSpirit(spirit *entity.Spirit) int64 {
 }
 
 func GetSpiritDetailsById(id int) (*entity.Spirit, error) {
-	row, err := utils.Database.Query("select gen.avatar,gen.number,gen.name,gen.description,gen.race_power,gen.race_attack,gen.race_defense,gen.race_magic_attack,gen.race_magic_defense,gen.race_speed,gen.height,gen.weight,gen.hobby,seri.id,seri.name,att.id,att.name,att2.id,att2.name,gro.id,gro.name from `genius` gen left join `genius_attributes` att on gen.primary_attributes_id = att.id left join `genius_attributes` att2 on gen.secondary_attributes_id = att2.id left join `group_table` gro on gen.group_id = gro.id left join `series` seri on gen.series=seri.id where gen.number = ?",
+	row, err := utils.Database.Query("select gen.id,gen.avatar,gen.number,gen.name,gen.description,gen.race_power,gen.race_attack,gen.race_defense,gen.race_magic_attack,gen.race_magic_defense,gen.race_speed,gen.height,gen.weight,gen.hobby,seri.id,seri.name,line.id,line.name,line.introduce,line.icon,att.id,att.name,att2.id,att2.name,gro.id,gro.name from `genius` gen left join `genius_attributes` att on gen.primary_attributes_id = att.id left join `genius_attributes` att2 on gen.secondary_attributes_id = att2.id left join `group_table` gro on gen.group_id = gro.id left join `series` seri on gen.series=seri.id left join `lineage` line on gen.lineage=line.id where gen.number = ?",
 		id)
 	if err != nil {
 		return nil, err
@@ -87,6 +88,7 @@ func GetSpiritDetailsById(id int) (*entity.Spirit, error) {
 	var details entity.Spirit
 	if row.Next() {
 		err = row.Scan(
+			&details.Id,
 			&details.Avatar,
 			&details.Number,
 			&details.Name,
@@ -102,6 +104,10 @@ func GetSpiritDetailsById(id int) (*entity.Spirit, error) {
 			&details.Hobby,
 			&details.Series.Id,
 			&details.Series.Name,
+			&details.Lineage.Id,
+			&details.Lineage.Name,
+			&details.Lineage.Introduce,
+			&details.Lineage.Icon,
 			&details.PrimaryAttributes.Id,
 			&details.PrimaryAttributes.Name,
 			&details.SecondaryAttributes.Id,
