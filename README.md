@@ -31,6 +31,11 @@
 <li>新增系别</li>
 <li>更新系别数据</li>
 </ul>
+<ul>
+<li>获取血脉列表</li>
+<li>新增血脉</li>
+<li>更新血脉数据</li>
+</ul>
 </details>
 
 <details>
@@ -61,6 +66,8 @@
 <li>更新异常状态数据</li>
 </ul>
 </details>
+
+**部分数据量较少的接口会直接返回全部数据而不分页**
 
 ## 关于本项目
 更多说明请参见: [RocoGuide](https://gitee.com/lanier/roco-guide)
