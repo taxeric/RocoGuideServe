@@ -36,11 +36,11 @@ func InitAPI(port string) {
 	registerAPI(abnormal.LoadAbnormalState)
 	registerAPI(lineage.LoadLineage)
 	engin := gin.Default()
+	engin.Use(middleware.Cors())
 	g := engin.Group("/api")
-	g.Use(middleware.Cors())
 	for _, api := range apis {
 		api(g)
 	}
-	g.StaticFS("/res", http.Dir("./res"))
+	engin.StaticFS("/res", http.Dir("./res"))
 	engin.Run(":" + port)
 }
