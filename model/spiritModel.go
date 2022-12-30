@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-func GetSpiritList(page int, amount int, keywords string) ([]entity.SpiritListItem, int) {
-	var sql = "select g.id,g.number,g.avatar,g.name,att.id,att.name ,att2.id,att2.name from `genius` g  left join `genius_attributes` att on g.primary_attributes_id = att.id left join `genius_attributes` att2 on g.secondary_attributes_id = att2.id where g.name like ?  order by g.id desc limit ? offset ?"
-	var sqlAmount = "select COUNT(*) from `genius` g  left join `genius_attributes` att on g.primary_attributes_id = att.id left join `genius_attributes` att2 on g.secondary_attributes_id = att2.id where g.name like ?"
-	row, err := utils.Database.Query(sql, "%"+keywords+"%", amount, (page-1)*amount)
+func GetSpiritList(page int, amount int, keywords string, seriesId int) ([]entity.SpiritListItem, int) {
+	var sql = "select g.id,g.number,g.avatar,g.name,att.id,att.name ,att2.id,att2.name from `genius` g  left join `genius_attributes` att on g.primary_attributes_id = att.id left join `genius_attributes` att2 on g.secondary_attributes_id = att2.id where g.name like ? and g.series = ? order by g.id desc limit ? offset ?"
+	var sqlAmount = "select COUNT(*) from `genius` g  left join `genius_attributes` att on g.primary_attributes_id = att.id left join `genius_attributes` att2 on g.secondary_attributes_id = att2.id where g.name like ? and g.series = ?"
+	row, err := utils.Database.Query(sql, "%"+keywords+"%", seriesId, amount, (page-1)*amount)
 	if err != nil {
 		return *new([]entity.SpiritListItem), 0
 	}
@@ -27,7 +27,7 @@ func GetSpiritList(page int, amount int, keywords string) ([]entity.SpiritListIt
 			&spirit.SecondaryAttributes.Name)
 		list = append(list, spirit)
 	}
-	row, err = utils.Database.Query(sqlAmount, "%"+keywords+"%")
+	row, err = utils.Database.Query(sqlAmount, "%"+keywords+"%", seriesId)
 	if err != nil {
 		return *new([]entity.SpiritListItem), 0
 	}

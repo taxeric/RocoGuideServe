@@ -14,6 +14,7 @@ type getSpiritListRequest struct {
 	Page     *int   `json:"page" form:"page" binding:"required"`
 	Amount   *int   `json:"amount" form:"amount" binding:"required"`
 	Keywords string `json:"keywords" form:"keywords"`
+	SeriesId int    `json:"seriesId" form:"seriesId"`
 }
 
 type spiritDetailsRequest struct {
@@ -51,7 +52,11 @@ func getSpiritList(c *gin.Context) {
 		})
 		return
 	}
-	list, total := model.GetSpiritList(*request.Page, *request.Amount, request.Keywords)
+	var seriesId = 1
+	if request.SeriesId > 0 {
+		seriesId = request.SeriesId
+	}
+	list, total := model.GetSpiritList(*request.Page, *request.Amount, request.Keywords, seriesId)
 	c.JSON(200, base.ResponseListEntity{
 		Code:  200,
 		Msg:   "success",
