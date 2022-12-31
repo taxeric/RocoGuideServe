@@ -6,7 +6,6 @@ import (
 	"RocoGuide/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 type getNewsRequest struct {
@@ -18,6 +17,7 @@ type insertNewsRequest struct {
 	Id    int64  `json:"id" form:"id"`
 	Title string `json:"title" form:"title" binding:"required"`
 	Url   string `json:"url" form:"url" binding:"required"`
+	Time  string `json:"time" form:"time"`
 }
 
 func getNews(c *gin.Context) {
@@ -50,11 +50,11 @@ func insertNews(c *gin.Context) {
 		})
 		return
 	}
-	var id = model.InsertNews(request.Url, request.Title)
+	var id = model.InsertNews(request.Url, request.Title, request.Time)
 	c.JSON(http.StatusOK, base.ResponseEntity{
 		Code: http.StatusOK,
 		Msg:  "success",
-		Data: strconv.FormatInt(id, 10),
+		Data: id,
 	})
 }
 
