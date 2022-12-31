@@ -26,18 +26,18 @@ func GetNewsList(page int, amount int) ([]entity.News, int) {
 	return list, total
 }
 
-func InsertNews(url string, title string) int64 {
-	return insertData(1, url, title)
+func InsertNews(url string, title string, updateTim string) int64 {
+	return insertData(1, url, title, updateTim)
 }
 
-func insertData(newsType int, contentOrUrl string, title string) int64 {
+func insertData(newsType int, contentOrUrl string, title string, updateTime string) int64 {
 	var sql string
 	if newsType == 1 {
-		sql = "insert into news(type,url,title) values (?,?,?)"
+		sql = "insert into news(type,url,title, update_time) values (?,?,?,?)"
 	} else {
-		sql = "insert into news(type,content,title) values (?,?,?)"
+		sql = "insert into news(type,content,title, update_time) values (?,?,?,?)"
 	}
-	result, _ := utils.Database.Exec(sql, newsType, contentOrUrl, title)
+	result, _ := utils.Database.Exec(sql, newsType, contentOrUrl, title, updateTime)
 	id, _ := result.LastInsertId()
 	return id
 }
