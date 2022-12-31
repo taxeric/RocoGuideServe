@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 type getSpiritListRequest struct {
@@ -35,6 +34,8 @@ type spiritDetailsRequest struct {
 	Height                *float32 `json:"height" form:"height" binding:"required"`
 	Weight                *float32 `json:"weight" form:"weight" binding:"required"`
 	Hobby                 *string  `json:"hobby" form:"hobby" binding:"required"`
+	Lineage               int64    `json:"lineage" form:"lineage" binding:"required"`
+	Series                int64    `json:"series" form:"series" binding:"required"`
 	Skill                 *[]int   `json:"skills" form:"skills"`
 }
 
@@ -119,6 +120,8 @@ func insertSpirit(c *gin.Context) {
 	spirit.Height = *request.Height
 	spirit.Weight = *request.Weight
 	spirit.Hobby = *request.Hobby
+	spirit.Series.Id = request.Series
+	spirit.Lineage.Id = request.Lineage
 	spirit.Skills = make([]entity.Skill, 0)
 	if request.Skill != nil {
 		for _, v := range *request.Skill {
@@ -131,7 +134,7 @@ func insertSpirit(c *gin.Context) {
 	c.JSON(http.StatusOK, base.ResponseEntity{
 		Code: http.StatusOK,
 		Msg:  "success",
-		Data: strconv.FormatInt(id, 10),
+		Data: id,
 	})
 }
 
@@ -162,10 +165,12 @@ func updateSpirit(c *gin.Context) {
 	spirit.Height = *request.Height
 	spirit.Weight = *request.Weight
 	spirit.Hobby = *request.Hobby
+	spirit.Series.Id = request.Series
+	spirit.Lineage.Id = request.Lineage
 	id := model.UpdateSpirit(&spirit)
 	c.JSON(http.StatusOK, base.ResponseEntity{
 		Code: http.StatusOK,
 		Msg:  "success",
-		Data: strconv.FormatInt(id, 10),
+		Data: id,
 	})
 }

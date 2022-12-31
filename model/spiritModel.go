@@ -41,7 +41,7 @@ func GetSpiritList(page int, amount int, keywords string, seriesId int) ([]entit
 
 func InsertSpirit(spirit *entity.Spirit) int64 {
 	var sql = "insert into genius(avatar,number,name,description,primary_attributes_id,secondary_attributes_id,race_power,race_attack,race_defense,race_magic_attack,race_magic_defense,race_speed,group_id,series,lineage,height,weight,hobby) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-	row, _ := utils.Database.Exec(
+	row, err := utils.Database.Exec(
 		sql,
 		spirit.Avatar,
 		spirit.Number,
@@ -62,6 +62,9 @@ func InsertSpirit(spirit *entity.Spirit) int64 {
 		spirit.Weight,
 		spirit.Hobby,
 	)
+	if err != nil {
+		fmt.Println(err)
+	}
 	spiritSqlId, err := row.LastInsertId()
 	if err != nil {
 		fmt.Println(err)
@@ -150,7 +153,7 @@ func GetSpiritDetailsById(id int) (*entity.Spirit, error) {
 }
 
 func UpdateSpirit(spirit *entity.Spirit) int64 {
-	sql := "update genius set avatar=?,name=?,description=?,primary_attributes_id=?,secondary_attributes_id=?,race_power=?,race_attack=?,race_defense=?,race_magic_attack=?,race_magic_defense=?,race_speed=?,group_id=?,height=?,weight=?,hobby=? where number = ?"
+	sql := "update genius set avatar=?,name=?,description=?,primary_attributes_id=?,secondary_attributes_id=?,race_power=?,race_attack=?,race_defense=?,race_magic_attack=?,race_magic_defense=?,race_speed=?,group_id=?,lineage=?,series=?,height=?,weight=?,hobby=? where number = ?"
 	row, _ := utils.Database.Exec(sql,
 		spirit.Avatar,
 		spirit.Name,
@@ -164,6 +167,8 @@ func UpdateSpirit(spirit *entity.Spirit) int64 {
 		spirit.RaceMagicDefense,
 		spirit.RaceSpeed,
 		spirit.Group.Id,
+		spirit.Lineage.Id,
+		spirit.Series.Id,
 		spirit.Height,
 		spirit.Weight,
 		spirit.Hobby,
